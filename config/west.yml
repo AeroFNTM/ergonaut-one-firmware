@@ -8,7 +8,7 @@ manifest:
    # Inside config/west.yml
     - name: zmk
       remote: zmkfirmware
-      revision: main  # or 'v3.5' / a specific updated branch supporting Studio
+      revision: v0.3.0
       import: app/west.yml
     - name: ergonautkb-zmk-module
       remote: ergonautkb
