@@ -5,9 +5,10 @@ manifest:
     - name: ergonautkb
       url-base: https://github.com/ergonautkb
   projects:
+   # Inside config/west.yml
     - name: zmk
       remote: zmkfirmware
-      revision: v0.3.0
+      revision: main  # or 'v3.5' / a specific updated branch supporting Studio
       import: app/west.yml
     - name: ergonautkb-zmk-module
       remote: ergonautkb
