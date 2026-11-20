@@ -19,10 +19,11 @@
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
             #binding-cells = <2>;
-            tapping-term-ms = <220>;
-            quick_tap_ms = <0>;
+            tapping-term-ms = <180>;
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
+
+            require-prior-idle-ms = <130>;
         };
 
         td_enter: td_enter {
@@ -45,6 +46,13 @@
             #binding-cells = <0>;
             bindings = <&kp Q>, <&kp ESCAPE>;
         };
+
+        ht_mouse: ht_mouse {
+            compatible = "zmk,behavior-tap-dance";
+            label = "HT_MOUSE";
+            #binding-cells = <0>;
+            bindings = <&mo 2>, <&tog 2>;
+        };
     };
 
     keymap {
@@ -53,70 +61,60 @@
         default_layer {
             display-name = "MAIN";
             bindings = <
-&td_esc  &kp W       &kp E            &kp R          &kp T        &kp Y            &kp U        &kp I         &kp O        &kp P
-&td_tab  &hm LALT S  &hm LS(LCTRL) D  &hm LSHFT F    &hm LCTRL G  &hm RIGHT_GUI H  &hm LSHFT J  &hm LCTRL K   &hm LALT L   &td_enter
-&kp Z    &kp X       &kp C            &kp V          &kp B        &kp COMMA        &kp N        &kp M         &kp DOT      &kp FSLH
-                                      &lt MEDIA ESC  &tog 2       &lt 1 BACKSPACE  &lt 4 SPACE  &lt NUM BSPC  &lt FUN DEL
+&td_esc  &kp W       &kp E            &kp R        &kp T        &kp Y            &kp U        &kp I        &kp O       &kp P
+&td_tab  &hm LALT S  &hm LS(LCTRL) D  &hm LSHFT F  &hm LCTRL G  &hm RIGHT_GUI H  &hm LSHFT J  &hm LCTRL K  &hm LALT L  &td_enter
+&kp Z    &kp X       &kp C            &kp V        &kp B        &kp COMMA        &kp N        &kp M        &kp DOT     &kp FSLH
+                                      &mo 6        &ht_mouse    &lt 1 BACKSPACE  &lt 3 SPACE  &tog 4       &tog 5
             >;
         };
 
         nav_layer {
-            display-name = "NAV";
+            display-name = "LEFT";
             bindings = <
-&none     &none     &none      &none      &none  &none     &kp LG(V)  &kp LG(C)  &kp LG(X)  &kp LG(Z)
-&kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none  &kp CAPS  &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT
-&none     &none     &none      &none      &none  &kp INS   &kp HOME   &kp PG_DN  &kp PG_UP  &kp END
-                               &none      &none  &none     &kp RET    &kp BSPC   &kp DEL
+&kp LS(EXCLAMATION)  &kp LS(NUMBER_2)  &kp LS(NUMBER_3)  &kp LS(NUMBER_4)  &kp LS(N5)            &kp RS(NUMBER_6)   &kp RS(N7)  &kp RS(N8)      &kp RS(N9)  &kp RS(N0)
+&kp TILDE            &none             &none             &none             &kp C_BRI_UP          &kp C_VOLUME_UP    &kp HOME    &kp UP_ARROW    &kp END     &kp PAGE_UP
+&none                &none             &none             &none             &kp C_BRIGHTNESS_DEC  &kp C_VOLUME_DOWN  &kp LEFT    &kp DOWN_ARROW  &kp RIGHT   &kp PAGE_DOWN
+                                                         &none             &none                 &none              &trans      &kp BSPC        &kp DEL
             >;
         };
 
         mouse_layer {
             display-name = "MOUSE";
             bindings = <
-&none     &none     &none      &none      &none  &none           &none           &none           &none            &none
-&kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none  &msc SCRL_UP    &mkp RCLK       &mmv MOVE_UP    &mkp LCLK        &msc SCRL_LEFT
-&none     &none     &none      &none      &none  &msc SCRL_DOWN  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_RIGHT
-                               &mo ADJ    &none  &none           &none           &none           &none
+&none     &none     &none      &none      &none  &kp C_AC_BACK   &kp C_AC_REFRESH  &kp C_AC_FORWARD  &kp C_AC_HOME    &kp PRINTSCREEN
+&kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none  &msc SCRL_UP    &mkp RCLK         &mmv MOVE_UP      &mkp LCLK        &msc SCRL_LEFT
+&none     &none     &none      &none      &none  &msc SCRL_DOWN  &mmv MOVE_LEFT    &mmv MOVE_DOWN    &mmv MOVE_RIGHT  &msc SCRL_RIGHT
+                               &mo 6      &none  &none           &trans            &none             &none
             >;
         };
 
-        media_layer {
-            display-name = "MEDIA";
+        num_row {
+            display-name = "RIGHT";
             bindings = <
-&none     &none     &none      &none      &none  &kp LG(LS(N4))  &none       &kp C_BRI_DN  &kp C_BRI_UP  &none
-&kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none  &none           &kp LSHFT   &kp C_VOL_DN  &kp C_VOL_UP  &kp LGUI
-&none     &none     &none      &none      &none  &none           &none       &none         &none         &none
-                               &none      &none  &mo ADJ         &kp C_STOP  &kp C_PP      &kp K_MUTE
+&kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp N5      &kp NUMBER_6  &kp N7     &kp N8            &kp N9             &kp N0
+&kp BACKSLASH  &kp APOS      &kp SEMI      &kp COMMA     &kp PERIOD  &kp MINUS     &kp EQUAL  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &none
+&none          &none         &none         &none         &none       &none         &none      &none             &none              &none
+                                           &none         &none       &mo 6         &trans     &kp C_PP          &kp K_MUTE
             >;
         };
 
-        num_layer {
+        key_pad {
             display-name = "NUM";
             bindings = <
-&kp LBKT   &kp N7  &kp N8  &kp N9   &kp RBKT   &none      &none      &none      &none     &none
-&kp SQT    &kp N4  &kp N5  &kp N6   &kp EQUAL  &none      &kp LSHFT  &kp LCTRL  &kp LALT  &kp LGUI
-&kp GRAVE  &kp N1  &kp N2  &kp N3   &kp BSLH   &none      &none      &none      &none     &none
-                           &kp DOT  &kp N0     &kp MINUS  &none      &none      &none
-            >;
-        };
-
-        sym_layer {
-            display-name = "SYM";
-            bindings = <
-&kp LBRC   &kp AMPS  &kp STAR   &kp LPAR   &kp RBRC  &none      &none      &none      &none     &none
-&kp COLON  &kp DLLR  &kp PRCNT  &kp CARET  &kp PLUS  &none      &kp LSHFT  &kp LCTRL  &kp LALT  &kp LGUI
-&kp TILDE  &kp EXCL  &kp AT     &kp HASH   &kp PIPE  &none      &none      &none      &none     &none
-                                &kp LPAR   &kp RPAR  &kp UNDER  &none      &none      &mo ADJ
+&none  &none  &none  &none  &none  &kp KP_PLUS      &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp KP_MINUS
+&none  &none  &none  &none  &none  &kp KP_MULTIPLY  &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp KP_DIVIDE
+&none  &none  &none  &none  &none  &kp KP_N0        &kp KP_N1        &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp KP_DOT
+                     &none  &none  &kp BACKSPACE    &kp KP_EQUAL     &tog 1           &kp KP_NUMLOCK
             >;
         };
 
         fun_layer {
             display-name = "FUN";
             bindings = <
-&kp F12  &kp F7  &kp F8  &kp F9     &kp PSCRN        &none    &none      &none      &none     &none
+&kp F10  &kp F1  &kp F2  &kp F3     &kp PSCRN        &none    &none      &none      &none     &none
 &kp F11  &kp F4  &kp F5  &kp F6     &kp SLCK         &none    &kp LSHFT  &kp LCTRL  &kp LALT  &kp LGUI
-&kp F10  &kp F1  &kp F2  &kp F3     &kp PAUSE_BREAK  &none    &none      &none      &none     &none
-                         &kp K_APP  &kp SPACE        &kp TAB  &mo ADJ    &none      &none
+&kp F12  &kp F7  &kp F8  &kp F9     &kp PAUSE_BREAK  &none    &none      &none      &none     &none
+                         &kp K_APP  &kp SPACE        &kp TAB  &mo 6      &none      &tog 5
             >;
         };
 
